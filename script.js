@@ -13,9 +13,7 @@ dotenv.config();
 const db = knex({
     client: 'pg',
     connectionString: process.env.DBConfigLink,
-    ssl: {
-        rejectUnauthorized: false
-    }
+    ssl: true
 });
 const app = express();
 
