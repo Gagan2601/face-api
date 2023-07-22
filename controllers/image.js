@@ -19,7 +19,7 @@ const handleApiCall = (req, res) => {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Authorization': 'Key ' + '22dc7c5d60e64736ac415534c0448624'
+            'Authorization': 'Key ' + process.env.api
         },
         body: raw
     };
@@ -43,6 +43,7 @@ const handleImage = (req, res, db) => {
       }
   
       const entries = result.rows[0].entries;
+      console.log(entries);
       return res.json(entries);
     });
   };
