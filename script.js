@@ -9,11 +9,13 @@ const profile = require('./controllers/profile')
 const image = require('./controllers/image')
 const knex = require('knex');
 const dotenv = require('dotenv');
+const { Pool } = require('pg');
 dotenv.config();
-const db = knex({
-    client: 'pg',
+const db = Pool({
     connectionString: process.env.DBConfigLink,
-    ssl: true
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 const app = express();
 
