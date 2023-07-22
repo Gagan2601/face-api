@@ -8,14 +8,12 @@ const signin = require('./controllers/signin')
 const profile = require('./controllers/profile')
 const image = require('./controllers/image')
 const knex = require('knex');
+const dotenv = require('dotenv');
+dotenv.config();
 const db = knex({
-    client: 'pg',
-    connection: {
-        host: 'dpg-citnp2tgkuvoigd1u8g0-a',
-        port: 5432,
-        user: 'gagan',
-        password: 'pdyYH00l1wDoBuMW4xIYU604o3DO5vKs',
-        database: 'dbname_znr7'
+    connectionString: process.env.DBConfigLink,
+    ssl: {
+        rejectUnauthorized: false
     }
 });
 const app = express();
