@@ -41,7 +41,7 @@ const handleImage = (req, res, db) => {
       if (result.rows.length === 0) {
         return res.status(400).json('User not found');
       }
-  
+      console.log(result);
       const entries = result.rows[0].entries;
       console.log(entries);
       return res.json(entries);
