@@ -1,10 +1,10 @@
 const saltRounds = 10;
 const express = require('express');
 const app = express();
-const register = require('./controllers/register')
-const signin = require('./controllers/signin')
-const profile = require('./controllers/profile')
-const image = require('./controllers/image')
+const register = require('../controllers/register')
+const signin = require('../controllers/signin')
+const profile = require('../controllers/profile')
+const image = require('../controllers/image')
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
 const { Pool } = require('pg');
