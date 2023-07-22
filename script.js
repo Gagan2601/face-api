@@ -11,6 +11,7 @@ const knex = require('knex');
 const dotenv = require('dotenv');
 dotenv.config();
 const db = knex({
+    client: 'pg',
     connectionString: process.env.DBConfigLink,
     ssl: {
         rejectUnauthorized: false
