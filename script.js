@@ -10,8 +10,6 @@ const routes = require('./router/routes');
 
 app.use(cors());
 app.use(bodyParser.json());
-
-// Use the single route module
 app.use('/', routes);
 
 const port = process.env.PORT || 5000;
