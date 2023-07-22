@@ -11,7 +11,7 @@ const knex = require('knex');
 const dotenv = require('dotenv');
 const { Pool } = require('pg');
 dotenv.config();
-const db = Pool({
+const db = new Pool({
     connectionString: process.env.DBConfigLink,
     ssl: {
         rejectUnauthorized: false
