@@ -1,21 +1,36 @@
-const handleSignin = (req, res,db,bcrypt) => {
-    db.select('email', 'hash').from('login')
-        .where('email', '=', req.body.email)
-        .then(data => {
-            const isValid = bcrypt.compareSync(req.body.password, data[0].hash);
-            if (isValid) {
-                return db.select('*').from('users')
-                    .where('email', '=', req.body.email)
-                    .then(user => {
-                        res.json(user[0])
-                    })
-                    .catch(err => res.status(400).json('unable to get user'))
-            } else {
-                res.status(400).json('wrong credentials')
-            }
-        })
-        .catch(err => res.status(400).json('wrong credentials'))
-}
+const handleSignin = (req, res, db, bcrypt) => {
+    const { email, password } = req.body;
+  
+    db.query('SELECT email, hash FROM login WHERE email = $1', [email], (err, result) => {
+      if (err) {
+        return res.status(500).json("Internal Server Error");
+      }
+  
+      if (result.rows.length === 0) {
+        return res.status(400).json('Wrong credentials');
+      }
+  
+      const data = result.rows[0];
+      const isValid = bcrypt.compareSync(password, data.hash);
+  
+      if (isValid) {
+        db.query('SELECT * FROM users WHERE email = $1', [email], (err, result) => {
+          if (err) {
+            return res.status(500).json("Internal Server Error");
+          }
+  
+          if (result.rows.length === 0) {
+            return res.status(400).json('Unable to get user');
+          }
+  
+          const user = result.rows[0];
+          return res.json(user);
+        });
+      } else {
+        return res.status(400).json('Wrong credentials');
+      }
+    });
+  };
 module.exports={
     handleSignin: handleSignin
 };

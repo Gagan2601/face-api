@@ -32,14 +32,20 @@ const handleApiCall = (req, res) => {
 }
 const handleImage = (req, res, db) => {
     const { id } = req.body;
-    db('users').where('id', '=', id)
-        .increment('entries', 1)
-        .returning('entries')
-        .then(entries => {
-            res.json(entries[0].entries);
-        })
-        .catch(err => res.status(400).json('error getting count'))
-}
+  
+    db.query('UPDATE users SET entries = entries + 1 WHERE id = $1 RETURNING entries', [id], (err, result) => {
+      if (err) {
+        return res.status(400).json('Error getting count');
+      }
+  
+      if (result.rows.length === 0) {
+        return res.status(400).json('User not found');
+      }
+  
+      const entries = result.rows[0].entries;
+      return res.json(entries);
+    });
+  };
 module.exports = {
     handleImage,
     handleApiCall
