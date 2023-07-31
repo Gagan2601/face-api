@@ -7,6 +7,14 @@ const { handleRegister } = require('../controllers/register');
 const { handleProfile } = require('../controllers/profile');
 const { handleImage, handleApiCall } = require('../controllers/image');
 
+const { Pool } = require('pg');
+const db = new Pool({
+  connectionString: process.env.DBConfigLink,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
 // Root path
 router.get('/', (req, res) => {
   res.send('Hello, World!');
