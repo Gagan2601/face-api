@@ -1,14 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const { Pool } = require('pg');
-const db = new Pool({
-  connectionString: process.env.DBConfigLink,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
-
 const saltRounds = 10;
 const { handleSignin } = require('../controllers/signin');
 const { handleRegister } = require('../controllers/register');
