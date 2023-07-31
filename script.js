@@ -6,12 +6,6 @@ const dotenv = require('dotenv');
 const app = express();
 dotenv.config();
 
-const mongoose = require('mongoose');
-const db = "mongodb+srv://gagan:gagandeep@smartbrain.703ikio.mongodb.net/?retryWrites=true&w=majority";
-mongoose.connect(db)
-  .then(() => console.log('connection successful'))
-  .catch((err) => console.log(err))
-
 const routes = require('./router/routes');
 
 app.use(cors());
